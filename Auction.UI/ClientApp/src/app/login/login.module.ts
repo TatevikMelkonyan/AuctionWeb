@@ -1,0 +1,3 @@
+import { NgModule } from "@angular/core";
+import { LoginComponent } from "./component/login.component";
+const routes = [  {    path: 'auth/login',    component: LoginComponent  }];@NgModule({  declarations: [    LoginComponent  ],  imports: [    MatButtonModule,    MatCheckboxModule,    MatFormFieldModule,    MatIconModule,    MatInputModule,    FuseSharedModule  ]})export class LoginModule {}
