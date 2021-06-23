@@ -24,20 +24,17 @@ export class AuctionComponent implements OnInit {
   products: Product[] = [];
   public paginator$: Observable<IPaginator<Product>> = this.store.pipe(select(paginator));
   public searchTerm$: Observable<string> = this.store.pipe(select(searchTerm));
-
+ 
   constructor(
     private _auctionService: AuctionService,
     private store: Store<IAppState>,
-    private productService: AuctionService,
     private actions$: Actions,
-    private snackBar: MatSnackBar ) {
+    private snackBar: MatSnackBar) {
   }
 
 
   ngOnInit(): void {
-    debugger;
     this.store.dispatch(new GetProducts());
-    debugger;
     this.actions$.pipe(
       ofType<GetProducts>(AuctionActionTypes.GetProducts),
       withLatestFrom(
@@ -45,7 +42,7 @@ export class AuctionComponent implements OnInit {
         this.store.pipe(select(paginator))
       ),
       switchMap(([searchTerm, paginator]) => {
-        return this.productService.getProducts("", 1, 5);
+        return this._auctionService.getProducts("", 1, 5);
       }),
       switchMap((paginator: IPaginator<Product>) => {
         return of(new GetProductsSuccess(paginator));
