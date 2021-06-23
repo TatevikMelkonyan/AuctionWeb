@@ -14,7 +14,6 @@ using System.Threading.Tasks;
 
 namespace AuctionWebAPI.Controllers
 {
-    //[AllowAnonymous]
     [Route("api/login")]
     [ApiController]
     public class AuthController : ControllerBase
@@ -28,7 +27,7 @@ namespace AuctionWebAPI.Controllers
         }
 
         [HttpPost]
-        //[Route("login")]
+       // [Route("login")]
         public async Task<IActionResult> Login([FromBody] LoginModel loginModel)
         {
             var user = await _userManager.FindByNameAsync(loginModel.UserName);

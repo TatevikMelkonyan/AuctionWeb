@@ -18,27 +18,67 @@
 
   <ItemGroup>
     <!-- Don't publish the SPA source files, but do show them in the project files list -->
+    <Compile Remove="ClientApp\src\app\login\component\**" />
+    <Compile Remove="ClientApp\src\app\product\**" />
     <Content Remove="$(SpaRoot)**" />
+    <Content Remove="ClientApp\src\app\login\component\**" />
+    <Content Remove="ClientApp\src\app\product\**" />
+    <EmbeddedResource Remove="ClientApp\src\app\login\component\**" />
+    <EmbeddedResource Remove="ClientApp\src\app\product\**" />
     <None Remove="$(SpaRoot)**" />
+    <None Remove="ClientApp\src\app\login\component\**" />
+    <None Remove="ClientApp\src\app\product\**" />
     <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="ClientApp\src\app\login\component\login.component.ts" />
+    <None Remove="ClientApp\src\app\auction\timer\timer.component.ts" />
+    <None Remove="ClientApp\src\app\helpers\http.helper.ts" />
+    <None Remove="ClientApp\src\app\login\login-routing.module.ts" />
+    <None Remove="ClientApp\src\app\login\login.component.ts" />
     <None Remove="ClientApp\src\app\login\login.module.ts" />
-    <None Remove="ClientApp\src\app\product\product.component.ts" />
-    <None Remove="ClientApp\src\app\product\product.module.ts" />
-    <None Remove="ClientApp\src\app\product\product.ts" />
-    <None Remove="ClientApp\src\app\services\data.service.ts" />
+    <None Remove="ClientApp\src\app\models\auth.interface.ts" />
+    <None Remove="ClientApp\src\app\models\paginator.interface.ts" />
+    <None Remove="ClientApp\src\app\models\token.ts" />
+    <None Remove="ClientApp\src\app\services\auction.service.ts" />
+    <None Remove="ClientApp\src\app\services\authentication.service.ts" />
+    <None Remove="ClientApp\src\app\shared\material\material.module.ts" />
+    <None Remove="ClientApp\src\app\store\app\app.state.ts" />
+    <None Remove="ClientApp\src\app\store\auction\auction.actions.ts" />
+    <None Remove="ClientApp\src\app\store\auction\auction.effects.ts" />
+    <None Remove="ClientApp\src\app\store\auction\auction.selector.ts" />
+    <None Remove="ClientApp\src\app\store\auction\auction.state.ts" />
+    <None Remove="ClientApp\src\app\store\auth\auth.actions.ts" />
+    <None Remove="ClientApp\src\app\store\auth\auth.selectors.ts" />
+    <None Remove="ClientApp\src\app\store\auth\auth.state.ts" />
+    <None Remove="ClientApp\src\app\store\product\product.state.ts" />
   </ItemGroup>
 
   <ItemGroup>
-    <TypeScriptCompile Include="ClientApp\src\app\login\component\login.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\auction\timer\timer.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\helpers\http.helper.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\login\login-routing.module.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\login\login.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\login\login.module.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\product\component\product.component.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\product\product.module.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\product\product.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\services\data.service.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\models\auth.interface.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\models\paginator.interface.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\models\token.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\services\auction.service.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\services\authentication.service.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\shared\material\material.module.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\store\app\app.state.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\store\auction\auction.actions.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\store\auction\auction.effects.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\store\auction\auction.selector.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\store\auction\auction.state.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\store\auth\auth.actions.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\store\auth\auth.selectors.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\store\auth\auth.state.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\store\product\product.state.ts" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="ClientApp\src\assets\images\" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

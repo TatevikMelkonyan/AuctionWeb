@@ -2,6 +2,7 @@ using Auction.API;
 using Auction.API.Helpers;
 using Auction.DataAccess;
 using Auction.DataAccess.Entities;
+using Auction.DataAccess.Repositories;
 using Auction.DataAccess.SeedData;
 using Auction.Logic.Interfaces;
 using Auction.Logic.ServerHub;
@@ -24,6 +25,7 @@ namespace AuctionWebAPI
 {
     public class Startup
     {
+        public readonly string corsPolisy = "CorsPolicy";
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -47,7 +49,7 @@ namespace AuctionWebAPI
                 options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
                 options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
             })
- 
+
            .AddJwtBearer(options =>
            {
                options.SaveToken = true;
@@ -64,11 +66,21 @@ namespace AuctionWebAPI
                };
            });
 
-            services.AddCors();
+            services.AddCors(options =>
+            {
+                options.AddPolicy(
+                  corsPolisy,
+                  builder => builder.AllowAnyOrigin()
+                  .AllowAnyMethod()
+                  .AllowAnyHeader()
+                  );
+            });
+
             services.AddTransient<IAuction, ActionService>();
-            services.AddTransient<IBid, BidService>();
-            services.AddScoped<IUnitOfWork,UnitOfWork>();
-            
+            services.AddTransient<IBidService, BidService>();
+            services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+
 
             services.AddSignalR();
             services.AddControllers();
@@ -83,6 +95,7 @@ namespace AuctionWebAPI
             }
 
             app.UseHttpsRedirection();
+            app.UseCors(corsPolisy);
 
             app.UseRouting();
 
@@ -90,7 +103,7 @@ namespace AuctionWebAPI
 
             app.UseAuthentication();
 
-        
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

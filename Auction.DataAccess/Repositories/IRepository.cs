@@ -1,15 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Auction.DataAccess.Entities;
+using System;
+using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
 using System.Threading.Tasks;
 
-namespace Auction.Logic.Interfaces
+namespace Auction.DataAccess
 {
-    public interface IRepository<T> where T : class
+    public interface IRepository<TEntity> where TEntity : BaseEntity
     {
-        Task<IEnumerable<T>> FindAllAsync(Expression<Func<T, bool>> predicate);
-        Task<T> FindAsync(string id);
-        void Update(T item);
+        IQueryable<TEntity> GetAll(Expression<Func<TEntity, bool>> predicate);
+        Task<TEntity> GetByIdAsync(int id);
+        void Update(TEntity item);
     }
 }

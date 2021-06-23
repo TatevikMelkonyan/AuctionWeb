@@ -4,6 +4,7 @@ using Auction.Logic.Interfaces;
 using Auction.Logic.Models;
 using Auction.Logic.ServerHub;
 using Microsoft.AspNetCore.SignalR;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,30 +13,36 @@ using System.Threading.Tasks;
 
 namespace Auction.Logic.Services
 {
-    public class ActionService: IAuction
+    public class ActionService : IAuction
     {
-        private readonly ApplicationDbContext _dbContext;
-        private readonly IHubContext<AuctionHub> _auctionHub;
-        private readonly IUnitOfWork _unitOfWork;
-        public ActionService(ApplicationDbContext dbContext, IUnitOfWork unitOfWork)
+        private readonly IRepository<Product> _productRepository;
+        public ActionService(IRepository<Product> productRepository)
         {
-            _dbContext = dbContext;
-            _unitOfWork = unitOfWork;
+            _productRepository = productRepository;
         }
 
         public async Task<ProductModel> GetProductAsync(int id)
         {
-            Product product = await _unitOfWork.Products.FindAsync(id.ToString());
+            Product product = await _productRepository.GetByIdAsync(id);
             return new ProductModel(product.Id,
-                product.Name, product.Description, product.Price, product.SellerPrice, product.ImgUrl, product.BidUsers.Where(bu => bu.ProductId == product.Id).LastOrDefault().User.Name);
+                product.Name, product.Description, product.Price, product.SellerPrice, product.ImgUrl);
         }
         public async Task<PaginationResult<ProductModel>> GetProductsAsync(string searchTerm, int pageIndex, int pageSize)
         {
-            IEnumerable<Product> products = await _unitOfWork.Products.FindAllAsync(p => p.Name.Contains(searchTerm));
-            var count = products.Count();
-            var items = products.Skip(pageIndex * pageSize).Take(pageSize).Select(p => new ProductModel(p.Id,
-                p.Name, p.Description, p.Price, p.MaxPrice, p.ImgUrl,p.BidUsers.Where(bu=>bu.ProductId==p.Id).LastOrDefault().User.Name)).ToList();
+            var products = await _productRepository.GetAll(p => p.Name.Contains(searchTerm)).ToListAsync();
 
+            var count = products.Count();
+            var items = products.Skip(pageIndex * pageSize).Take(pageSize)
+                                           .Select(p => new ProductModel
+                                                                       (
+                                                                           p.Id,
+                                                                           p.Name,
+                                                                           p.Description,
+                                                                           p.Price,
+                                                                           p.MaxPrice,
+                                                                           p.ImgUrl
+                                                                       )
+                                           ).ToList();
             return new PaginationResult<ProductModel>(items, count);
         }
     }

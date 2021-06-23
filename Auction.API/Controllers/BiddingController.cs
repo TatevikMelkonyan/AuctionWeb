@@ -12,17 +12,16 @@ using Microsoft.AspNetCore.SignalR;
 
 namespace AuctionApp.Controllers
 {
-    //[Authorize]
+    [Authorize]
     [Route("api/bidding")]
     [ApiController]
     public class BiddingController : ControllerBase
     {
         private SignInManager<AppUser> _signInManager;
-        private readonly IHubContext<AuctionHub> _hubContext;
-        private readonly IBid _bid;
+        private readonly IBidService _bid;
 
         public BiddingController(SignInManager<AppUser> signinManager
-            ,IBid bid)
+            ,IBidService bid)
         {
             _signInManager = signinManager;
             _bid = bid;
