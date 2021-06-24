@@ -9,8 +9,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Auction.Logic", "Auction.Lo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Auction.API", "Auction.API\Auction.API.csproj", "{6713D2F3-AF6E-4E11-90E3-DA01E0861FFD}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Auction.UI", "Auction.UI\Auction.UI.csproj", "{D063B60A-6594-44CC-AAB6-0F447815063E}"
-EndProject
 Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "angular-ClientAppNew", "angular-ClientAppNew\", "{C255514B-DE47-47A4-8D12-2EBD2C9DEDE7}"
 	ProjectSection(WebsiteProperties) = preProject
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
@@ -50,10 +48,6 @@ Global
 		{6713D2F3-AF6E-4E11-90E3-DA01E0861FFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6713D2F3-AF6E-4E11-90E3-DA01E0861FFD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6713D2F3-AF6E-4E11-90E3-DA01E0861FFD}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D063B60A-6594-44CC-AAB6-0F447815063E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D063B60A-6594-44CC-AAB6-0F447815063E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D063B60A-6594-44CC-AAB6-0F447815063E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D063B60A-6594-44CC-AAB6-0F447815063E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C255514B-DE47-47A4-8D12-2EBD2C9DEDE7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{C255514B-DE47-47A4-8D12-2EBD2C9DEDE7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C255514B-DE47-47A4-8D12-2EBD2C9DEDE7}.Release|Any CPU.ActiveCfg = Debug|Any CPU

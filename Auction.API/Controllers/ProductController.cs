@@ -11,8 +11,8 @@ using System.Threading.Tasks;
 
 namespace AuctionWebAPI.Controllers
 {
-    [Authorize]
-    [Route("api/[controller]")]
+    //[Authorize]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class ProductController : ControllerBase
     {
@@ -28,7 +28,7 @@ namespace AuctionWebAPI.Controllers
             return await _auction.GetProductAsync(id);
         }
 
-        [HttpGet("products")]
+        [HttpGet]
         public async Task<PaginationResult<ProductModel>> GetProducts(string searchTerm = "", int pageIndex = 0, int pageSize = 10)
         {
             return await _auction.GetProductsAsync(searchTerm, pageIndex, pageSize);

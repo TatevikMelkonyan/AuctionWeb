@@ -1,0 +1,31 @@
+<div class="action">
+    <mat-form-field>
+    </mat-form-field>
+    <mat-form-field>
+        <mat-icon matPrefix>search</mat-icon>
+        <input matInput type="search" placeholder="Search" [ngModel]="searchTerm$ | async" (input)="searchProduct($event.target.value)">
+    </mat-form-field>
+</div>
+<ng-container *ngIf="paginator$ | async; let paginator">
+    <div class="images">
+        <mat-card class="card" *ngFor="let product of paginator.items">
+            <a mat-button routerLink="/products/{{product.id}}">
+                <mat-card-header>
+                    <!--<div mat-card-avatar class="header-image"
+                        [ngStyle]="{ 'background-image': 'url(' + imageUrl + product.imageFileName + ')', 
+                            'background-repeat': 'no-repeat', 'background-position': 'center' }">
+                    </div>-->
+                    <mat-card-title style="font-size: 15px">{{product.name}}</mat-card-title>
+                </mat-card-header>
+                <img mat-card-image [src] ="imageUrl + product.imageFileName" alt="" />
+                <mat-card-footer>
+                    <mat-card-title style="font-size: 15px">{{product.price | currency}}</mat-card-title>
+                    <app-timer style="font-size: 15px"></app-timer>
+                </mat-card-footer>
+            </a>
+        </mat-card>
+    </div>
+    <mat-paginator [length]="paginator.length" [pageIndex]="paginator.pageIndex" [pageSize]="paginator.pageSize"
+        [pageSizeOptions]="[5, 10, 25, 100]" (page)="pageEvent = getProducts($event.pageIndex, $event.pageSize)">
+    </mat-paginator>
+</ng-container>

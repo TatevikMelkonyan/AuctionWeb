@@ -1,4 +1,5 @@
-﻿using Auction.DataAccess.Entities;
+﻿using Auction.API.Models;
+using Auction.DataAccess.Entities;
 using AuctionWebAPI.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -14,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace AuctionWebAPI.Controllers
 {
-    [Route("api/login")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class AuthController : ControllerBase
     {
@@ -27,10 +28,9 @@ namespace AuctionWebAPI.Controllers
         }
 
         [HttpPost]
-       // [Route("login")]
         public async Task<IActionResult> Login([FromBody] LoginModel loginModel)
         {
-            var user = await _userManager.FindByNameAsync(loginModel.UserName);
+            var user = await _userManager.FindByNameAsync(loginModel.Email);
             if (user != null && await _userManager.CheckPasswordAsync(user, loginModel.Password))
             {
                 var userRoles = await _userManager.GetRolesAsync(user);
@@ -51,17 +51,16 @@ namespace AuctionWebAPI.Controllers
 
 
 
-                var token = new JwtSecurityToken(_configuration["Jwt:Issuer"],
+                var tokeOptions = new JwtSecurityToken(_configuration["Jwt:Issuer"],
                   _configuration["Jwt:Issuer"],
                   null,
                   expires: DateTime.Now.AddMinutes(120),
                   signingCredentials: credentials);
 
-                return Ok(new
-                {
-                    token = new JwtSecurityTokenHandler().WriteToken(token),
-                    expiration = token.ValidTo
-                });
+                var token = new JwtSecurityTokenHandler().WriteToken(tokeOptions);
+
+                TokenResult tokenResult = new TokenResult(user.Id, token, userRoles[0]);
+                return Ok(tokenResult);
             }
             return Unauthorized();
         }

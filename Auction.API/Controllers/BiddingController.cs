@@ -12,8 +12,8 @@ using Microsoft.AspNetCore.SignalR;
 
 namespace AuctionApp.Controllers
 {
-    [Authorize]
-    [Route("api/bidding")]
+    //[Authorize]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class BiddingController : ControllerBase
     {
@@ -27,7 +27,6 @@ namespace AuctionApp.Controllers
             _bid = bid;
         }
 
-        // [Authorize]
         [HttpPost]
         //[Route("bidding")]
         public async Task<IActionResult> Bid([FromBody] BiddingModel model)

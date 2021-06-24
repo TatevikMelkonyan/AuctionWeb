@@ -26,7 +26,7 @@ namespace Auction.Logic.Models
             Name = name;
             Description = description;
             Price = price;
-            SellerPrice = sellerPrice;
+            SellerPrice = price;
             ImageFileName = imageFileName;
         }
     }

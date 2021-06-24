@@ -12,14 +12,16 @@ export class AuctionService {
   private url = "https://localhost:44309/api/products";
 
   constructor(private httpClient: HttpClient) {
+    debugger;
   }
 
   //getProducts() {
   //  return this.httpClient.get(this.url);
   //}
-
+ 
   
   public getProducts(searchTerm: string, pageIndex: number, pageSize: number): Observable<IPaginator<Product>> {
+    debugger;
     const params = HttpHelper.getPaginatorParams(searchTerm, pageIndex, pageSize);
     return this.httpClient.get<IPaginator<Product>>(this.url, { params: params }).pipe(
       mergeMap(data => {
