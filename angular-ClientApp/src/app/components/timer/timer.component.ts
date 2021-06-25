@@ -39,8 +39,6 @@ export class CountDownComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    debugger
-    var kkk = this.activeTime;
     this.subscription = interval(1000)
       .subscribe(x => { this.getTimeDifference(); });
   }
