@@ -25,7 +25,7 @@ namespace Auction.Logic.Services
         {
             Product product = await _productRepository.GetByIdAsync(id);
             return new ProductModel(product.Id,
-                product.Name, product.Description, product.Price, product.SellerPrice, product.ImgUrl);
+                product.Name, product.Description, product.Price, product.SellerPrice, product.ImgUrl,product.ActiveTime);
         }
         public async Task<PaginationResult<ProductModel>> GetProductsAsync(string searchTerm, int pageIndex, int pageSize)
         {
@@ -40,7 +40,8 @@ namespace Auction.Logic.Services
                                                                            p.Description,
                                                                            p.Price,
                                                                            p.MaxPrice,
-                                                                           p.ImgUrl
+                                                                           p.ImgUrl,
+                                                                           p.ActiveTime
                                                                        )
                                            ).ToList();
             return new PaginationResult<ProductModel>(items, count);

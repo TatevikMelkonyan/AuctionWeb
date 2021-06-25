@@ -15,7 +15,11 @@ namespace Auction.DataAccess.SeedData
         {
             using (var context = serviceProvider.GetService<ApplicationDbContext>())
             {
+                context.Database.Migrate();
+
                 await context.Database.EnsureCreatedAsync();
+
+                
                 #region Identity
                 using (var userManager = serviceProvider.GetService<UserManager<AppUser>>())
                 {
@@ -195,7 +199,9 @@ namespace Auction.DataAccess.SeedData
                     context.Configurations.Add(new Configuration { BidPeriod = TimeSpan.FromMinutes(15) });
                     await context.SaveChangesAsync();
                 }
+                
                 #endregion//Configuration
+
             }
         }
     }

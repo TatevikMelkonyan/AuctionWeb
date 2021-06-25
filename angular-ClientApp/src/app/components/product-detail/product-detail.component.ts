@@ -35,9 +35,6 @@ export class ProductDetailComponent implements OnInit {
     this.biddingForm = new FormGroup({
       bid: new FormControl('', [Validators.pattern(input_bid)])
     });
-    //  this.formBuilder.group({
-    //  bid: ["", Validators.pattern(input_bid)]
-    //});
     // Getting product by id
     const id = +this.route.snapshot.paramMap.get('id');
     this.store.dispatch(new GetProduct(id));

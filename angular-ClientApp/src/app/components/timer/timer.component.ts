@@ -8,7 +8,7 @@ import { Subscription, interval } from 'rxjs';
 })
 export class CountDownComponent implements OnInit, OnDestroy {
   @Input()
-  activeTime;
+  activeTime : Date;
   private subscription: Subscription;
 
   public dateNow = new Date();
@@ -27,7 +27,7 @@ export class CountDownComponent implements OnInit, OnDestroy {
 
 
   private getTimeDifference() {
-    this.timeDifference = this.dDay.getTime() - new Date().getTime();
+    this.timeDifference = this.activeTime.getTime() - new Date().getTime();
     this.allocateTimeUnits(this.timeDifference);
   }
 

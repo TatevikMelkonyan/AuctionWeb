@@ -20,7 +20,7 @@ namespace Auction.Logic.Models
         {
 
         }
-        public ProductModel(int id, string name, string description, decimal price, decimal sellerPrice, string imageFileName)
+        public ProductModel(int id, string name, string description, decimal price, decimal sellerPrice, string imageFileName,DateTime dateTime)
         {
             Id = id;
             Name = name;
@@ -28,6 +28,7 @@ namespace Auction.Logic.Models
             Price = price;
             SellerPrice = price;
             ImageFileName = imageFileName;
+            ActiveTime = dateTime;
         }
     }
 }
