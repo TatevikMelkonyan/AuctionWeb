@@ -34,7 +34,6 @@ namespace AuctionApp.Controllers
             {
                 try
                 {
-                    //string id = _signInManager.UserManager.GetUserId(User);
                     await _bid.MakeBid(model);
                     return Ok("You have made a new bid");
                 }
