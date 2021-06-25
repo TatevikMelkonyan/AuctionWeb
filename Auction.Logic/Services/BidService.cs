@@ -31,41 +31,44 @@ namespace Auction.Logic.Services
             if (await IsThereAnyOffer(model.ProductId))
             {
                 decimal highestBid = await GetHighestBid(model.ProductId);
-                if (model.Amount <= highestBid || model.Amount <= product.Price)
-                    throw new Exception("Your request failed");
-                else
+
+                if (model.AutomaticBid)
                 {
-                    var now = DateTime.UtcNow;
                     product.UpdateddDate = DateTime.UtcNow;
-                    product.Price = model.Amount;
+                    product.Price = product.Price + 1;
                     product.UpdatedByUserId = model.UserId;
 
-                    _productRepository.Update(product);
+                    await _productRepository.Update(product);
 
-                    _ = _hubContext.Clients.All.SendAsync("NewBid", $"Currently the highest bid: <strong>${model.Amount}</strong>", model.ProductId);
-                    _ = _hubContext.Clients.All.SendAsync("AddOffer", new
+                     _= _hubContext.Clients.All.SendAsync("NewBid", product.Price);
+                }
+                else
+                {
+
+                    if (model.Amount <= highestBid || model.Amount <= product.Price)
+                        throw new Exception("Your request failed");
+                    else
                     {
-                        Amount = model.Amount,
-                        Time = now
-                    });
+                        product.UpdateddDate = DateTime.UtcNow;
+                        product.Price = model.Amount;
+                        product.UpdatedByUserId = model.UserId;
+
+                       await _productRepository.Update(product);
+
+                        _= _hubContext.Clients.All.SendAsync("NewBid", product.Price);
+                    }
                 }
             }
             else
             {
                 if (model.Amount > product.Price)
                 {
-                    var now = DateTime.UtcNow;
                     product.UpdateddDate = DateTime.UtcNow;
                     product.Price = (decimal)model.Amount;
                     product.UpdatedByUserId = model.UserId;
-                    _productRepository.Update(product);
+                    await _productRepository.Update(product);
 
-                    await _hubContext.Clients.All.SendAsync("NewBid", $"Currently the highest bid: <strong>${model.Amount}</strong>", model.ProductId);
-                    await _hubContext.Clients.All.SendAsync("AddOffer", new
-                    {
-                        Amount = model.Amount,
-                        Time = now
-                    });
+                    await _hubContext.Clients.All.SendAsync("NewBid", product.Price);
                 }
             }
         }

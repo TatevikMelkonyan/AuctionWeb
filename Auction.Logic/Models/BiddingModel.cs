@@ -8,6 +8,7 @@ namespace Auction.Logic.Models
     {
         public string UserId { get; set; }
         public decimal Amount { get; set; }
+        public bool AutomaticBid { get; set; }
         public int ProductId { get; set; }
     }
 }

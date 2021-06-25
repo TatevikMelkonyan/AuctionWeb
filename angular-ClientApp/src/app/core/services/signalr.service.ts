@@ -30,7 +30,9 @@ export class SignalrService implements OnDestroy {
 
   public addTransferStatusDataListener = (productId: number) => {
     this.productId = productId.toString();
-    this.hubConnection.on(this.productId, (price) => {            
+    debugger
+    this.hubConnection.on("NewBid", price => {
+      debugger
       this.store.dispatch(new ChangeSellerPrice(price));
     });
   }

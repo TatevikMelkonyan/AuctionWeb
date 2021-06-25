@@ -33,5 +33,10 @@ namespace Auction.Logic.ServerHub
             }
             await base.OnDisconnectedAsync(exception);
         }
+
+        public async Task SendAsync(int productId, decimal price)
+        {
+            await Clients.All.SendAsync("NewBid", productId, price);
+        }
     }
 }

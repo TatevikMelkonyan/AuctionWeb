@@ -5,16 +5,18 @@ import { CommonModule } from '@angular/common';
 import { ProductDetailRoutingModule } from './product-detail-routing.module';
 import { ProductDetailComponent } from './product-detail.component';
 import { MatCheckboxModule } from '@angular/material';
+import { CountDownComponent } from '../timer/timer.component';
 
 @NgModule({
-  declarations: [ProductDetailComponent],
+  declarations: [ProductDetailComponent, CountDownComponent],
   imports: [
     CommonModule,    
     FormsModule,
     ReactiveFormsModule,
     ProductDetailRoutingModule,        
     MaterialModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    
   ]  
 })
 export class ProductDetailModule { }

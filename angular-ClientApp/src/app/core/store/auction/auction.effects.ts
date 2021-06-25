@@ -68,7 +68,8 @@ export class AuctionEffects {
     getProduct$ = this.actions$.pipe(
         ofType<GetProduct>(AuctionActionTypes.GetProduct),
         map(action => action.payload),
-        switchMap((id) => {
+      switchMap((id) => {
+          debugger
             return this.productService.getProduct(id);
         }),
         switchMap((product: IProduct) => {
@@ -81,7 +82,8 @@ export class AuctionEffects {
         ofType<BuyProduct>(AuctionActionTypes.BuyProduct),
         map(action => action.payload),
       switchMap((payload) => {
-            return this.productService.buyProduct(payload.userId, payload.productId);
+        debugger
+        return this.productService.buyProduct(payload.userId, payload.productId, payload.amount, payload.automaticBid);
         }),
         switchMap((data: any) => {
             return of(new BuyProductSuccess(data.message));

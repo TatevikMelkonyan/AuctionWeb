@@ -18,6 +18,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
   providers: [SignalrService]
 })
 export class ProductDetailComponent implements OnInit {
+  
   public product$: Observable<IProduct> = this.store.pipe(select(selectedProduct));
   public sellerPrice$: Observable<number> = this.store.pipe(select(sellerPrice));  
   public imageUrl: any = `${environment.imgFolder}`;
@@ -25,11 +26,12 @@ export class ProductDetailComponent implements OnInit {
   checked = false;
 
   constructor(private store: Store<IAppState>, private route: ActivatedRoute, 
-    private authService: AuthService, private signalRService: SignalrService, private formBuilder: FormBuilder) { }
+    private authService: AuthService, private signalRService: SignalrService, private formBuilder: FormBuilder) {
+  debugger}
 
   ngOnInit() {
     debugger
-    let input_bid = /[0-9\+\-\ ]/;
+    let input_bid = "^[0-9]*$";
     this.biddingForm = new FormGroup({
       bid: new FormControl('', [Validators.pattern(input_bid)])
     });
@@ -44,11 +46,16 @@ export class ProductDetailComponent implements OnInit {
     this.signalRService.addTransferStatusDataListener(id);
   }
 
+  public isChecked(event) {
+    this.checked = event.checked
+
+  }
+
   // Bid offer
   public buy(productId: number): void {
     debugger;
     const userId: number = this.authService.getUserId();
-    this.store.dispatch(new BuyProduct({ userId: userId, productId: productId}));
+    this.store.dispatch(new BuyProduct({ userId: userId, productId: productId, amount:  this.biddingForm.get("bid").value!=""  ? this.biddingForm.get("bid").value : 0, automaticBid: this.checked }));
   }  
 
 }

@@ -10,6 +10,6 @@ namespace Auction.DataAccess
     {
         IQueryable<TEntity> GetAll(Expression<Func<TEntity, bool>> predicate);
         Task<TEntity> GetByIdAsync(int id);
-        void Update(TEntity item);
+        Task Update(TEntity item);
     }
 }

@@ -15,6 +15,7 @@ export class ProductService {
   constructor(private httpClient: HttpClient) { }
 
   public getProduct(id: number): Observable<any> {
+    debugger
     const productUrl = `${environment.apiUrl + environment.apiProduct + id}`;
     return this.httpClient.get<any>(productUrl);
   }
@@ -29,9 +30,9 @@ export class ProductService {
     );
   }  
 
-  public buyProduct(userId: number, productId: number): Observable<any> {
+  public buyProduct(userId: number, productId: number, amount: number, automaticBid: boolean): Observable<any> {
     const productBuyUrl = `${environment.apiUrl + environment.apiBuy}`;
-    const body = { userId, productId };
+    const body = { userId, productId, amount, automaticBid };
     return this.httpClient.post(productBuyUrl, body);
   }
 

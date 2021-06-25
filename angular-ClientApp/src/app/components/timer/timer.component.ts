@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { Subscription, interval } from 'rxjs';
 
 @Component({
@@ -7,7 +7,8 @@ import { Subscription, interval } from 'rxjs';
   styleUrls: ['./timer.component.css']
 })
 export class CountDownComponent implements OnInit, OnDestroy {
-
+  @Input()
+  activeTime;
   private subscription: Subscription;
 
   public dateNow = new Date();
@@ -38,6 +39,8 @@ export class CountDownComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    debugger
+    var kkk = this.activeTime;
     this.subscription = interval(1000)
       .subscribe(x => { this.getTimeDifference(); });
   }

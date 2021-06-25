@@ -6,5 +6,5 @@ export interface IProduct {
   sellerPrice: number,
   imageFileName: string,
   owner: number,
-  ActiveTime: Date
+  activeTime: Date
 }

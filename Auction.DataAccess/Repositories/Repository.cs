@@ -27,10 +27,10 @@ namespace Auction.DataAccess.Repositories
             return await _context.Set<TEntity>().FirstOrDefaultAsync(x => x.Id == id);
         }
 
-        public void Update(TEntity item)
+        public async Task Update(TEntity item)
         {
             _context.Entry(item).State = EntityState.Modified;
-            _context.Set<TEntity>().Attach(item);
+           await _context.SaveChangesAsync();
         }
     }
 }

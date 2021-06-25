@@ -22,7 +22,7 @@ import { HttpErrorInterceptor } from './shared/classes/http-error.interceptor';
   declarations: [
     AppComponent,    
     AuthLayoutComponent,
-    SiteLayoutComponent
+    SiteLayoutComponent,
   ],
   imports: [    
     BrowserModule,    
@@ -35,7 +35,6 @@ import { HttpErrorInterceptor } from './shared/classes/http-error.interceptor';
     AppRoutingModule,
     BrowserAnimationsModule,
     MaterialModule,
-
     NgxPermissionsModule.forRoot()
   ],
   providers: [

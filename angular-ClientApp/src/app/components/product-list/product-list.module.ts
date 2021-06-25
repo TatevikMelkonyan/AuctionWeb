@@ -7,14 +7,15 @@ import { ProductListComponent } from './product-list.component';
 import { CountDownComponent } from '../timer/timer.component';
 
 @NgModule({
-  declarations: [ProductListComponent,
-    CountDownComponent],
+  declarations: [ProductListComponent
+    ],
   imports: [
     CommonModule,    
     FormsModule,
     ReactiveFormsModule,
     ProductListRoutingModule,        
-    MaterialModule
+    MaterialModule,
+    
   ]
 })
 export class ProductListModule { }
