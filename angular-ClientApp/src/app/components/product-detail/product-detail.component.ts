@@ -9,6 +9,7 @@ import { environment } from './../../../environments/environment';
 import { IAppState } from 'src/app/core/store/app/app.state';
 import { selectedProduct, sellerPrice } from 'src/app/core/store/auction/auction.selectors';
 import { GetProduct, BuyProduct } from 'src/app/core/store/auction/auction.actions';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-product-detail',
@@ -19,13 +20,22 @@ import { GetProduct, BuyProduct } from 'src/app/core/store/auction/auction.actio
 export class ProductDetailComponent implements OnInit {
   public product$: Observable<IProduct> = this.store.pipe(select(selectedProduct));
   public sellerPrice$: Observable<number> = this.store.pipe(select(sellerPrice));  
-  public imageUrl: any = `${environment.imgFolder}`;      
+  public imageUrl: any = `${environment.imgFolder}`;
+  public biddingForm: FormGroup;
+  checked = false;
 
   constructor(private store: Store<IAppState>, private route: ActivatedRoute, 
-    private authService: AuthService, private signalRService: SignalrService) { }
+    private authService: AuthService, private signalRService: SignalrService, private formBuilder: FormBuilder) { }
 
   ngOnInit() {
-   
+    debugger
+    let input_bid = /[0-9\+\-\ ]/;
+    this.biddingForm = new FormGroup({
+      bid: new FormControl('', [Validators.pattern(input_bid)])
+    });
+    //  this.formBuilder.group({
+    //  bid: ["", Validators.pattern(input_bid)]
+    //});
     // Getting product by id
     const id = +this.route.snapshot.paramMap.get('id');
     this.store.dispatch(new GetProduct(id));
@@ -36,6 +46,7 @@ export class ProductDetailComponent implements OnInit {
 
   // Bid offer
   public buy(productId: number): void {
+    debugger;
     const userId: number = this.authService.getUserId();
     this.store.dispatch(new BuyProduct({ userId: userId, productId: productId}));
   }  

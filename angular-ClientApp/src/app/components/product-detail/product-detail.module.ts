@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProductDetailRoutingModule } from './product-detail-routing.module';
 import { ProductDetailComponent } from './product-detail.component';
+import { MatCheckboxModule } from '@angular/material';
 
 @NgModule({
   declarations: [ProductDetailComponent],
@@ -12,7 +13,8 @@ import { ProductDetailComponent } from './product-detail.component';
     FormsModule,
     ReactiveFormsModule,
     ProductDetailRoutingModule,        
-    MaterialModule
+    MaterialModule,
+    MatCheckboxModule
   ]  
 })
 export class ProductDetailModule { }

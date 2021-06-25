@@ -28,15 +28,14 @@ namespace AuctionApp.Controllers
         }
 
         [HttpPost]
-        //[Route("bidding")]
         public async Task<IActionResult> Bid([FromBody] BiddingModel model)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
-                    string id = _signInManager.UserManager.GetUserId(User);
-                    await _bid.MakeBid(model, id);
+                    //string id = _signInManager.UserManager.GetUserId(User);
+                    await _bid.MakeBid(model);
                     return Ok("You have made a new bid");
                 }
                 catch (Exception e)

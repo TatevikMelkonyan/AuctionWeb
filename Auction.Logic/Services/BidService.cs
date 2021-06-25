@@ -22,7 +22,7 @@ namespace Auction.Logic.Services
             _hubContext = hubContext;
             _productRepository = productRepository;
         }
-        public async Task MakeBid(BiddingModel model, string userId)
+        public async Task MakeBid(BiddingModel model)
         {
             Product product = new Product();
             product = await _productRepository.GetByIdAsync(model.ProductId);
@@ -38,7 +38,7 @@ namespace Auction.Logic.Services
                     var now = DateTime.UtcNow;
                     product.UpdateddDate = DateTime.UtcNow;
                     product.Price = model.Amount;
-                    product.UpdatedByUserId = "a9b926b4-c1c1-4299-bd86-18da6694b371";//id;
+                    product.UpdatedByUserId = model.UserId;
 
                     _productRepository.Update(product);
 
@@ -57,7 +57,7 @@ namespace Auction.Logic.Services
                     var now = DateTime.UtcNow;
                     product.UpdateddDate = DateTime.UtcNow;
                     product.Price = (decimal)model.Amount;
-                    product.UpdatedByUserId = "3678e88b-0e17-4e90-9a21-4d01ef8172c1";//id;
+                    product.UpdatedByUserId = model.UserId;
                     _productRepository.Update(product);
 
                     await _hubContext.Clients.All.SendAsync("NewBid", $"Currently the highest bid: <strong>${model.Amount}</strong>", model.ProductId);

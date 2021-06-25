@@ -8,7 +8,7 @@ namespace Auction.Logic.Interfaces
 {
     public interface IBidService
     {
-        Task MakeBid(BiddingModel model, string userId);
+        Task MakeBid(BiddingModel model);
         Task<decimal> GetStartingPrice(int productId);
         Task<decimal> GetHighestBid(int auctId);
         Task<bool> IsThereAnyOffer(int auctionId);

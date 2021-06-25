@@ -6,6 +6,7 @@ namespace Auction.Logic.Models
 {
     public class BiddingModel
     {
+        public string UserId { get; set; }
         public decimal Amount { get; set; }
         public int ProductId { get; set; }
     }
